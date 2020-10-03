@@ -1,0 +1,39 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "emu-test": "firebase emulators:exec --only firestore jest",
+    "test": "npx jest"
+  },
+  "jest": {
+    "verbose": true,
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.+(js|ts|tsx)",
+      "**/?(*.)+(spec|test).+(js|ts|tsx)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.4.1"
+  },
+  "dependencies": {
+    "firebase-admin": "^9.2.0",
+    "typescript": "^4.0.3"
+  }
+}
