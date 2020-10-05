@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
-import { calculatePrices } from "./firestore";
+import { Firestore } from "./firestore";
+import { app } from "./firebase-admin";
+const db = new Firestore(app);
 
 const main = async () => {
-  const total = await calculatePrices(["iphone", "ipad"]);
+  const total = await db.calculatePrices(["iphone", "ipad"]);
   console.log("金額合計: ", total);
 };
 main();
