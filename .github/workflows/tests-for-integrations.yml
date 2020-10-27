@@ -1,0 +1,41 @@
+name: Tests for integrations
+on:
+  push:
+    branches:
+      - draft
+  pull_request:
+    branches:
+      - draft
+
+jobs:
+  build_deploy:
+    name: Tests for integrations
+    runs-on: ubuntu-latest
+    env:
+      FIREBASE_EMULATORS_PATH: ${{ github.workspace }}/emulator-cache
+      FIREBASE_TOOLS_VERSION: 8.4.3
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      # setup firestore emulator
+      - name: setup env for waitport and fsrpl
+        run: |
+          echo "::set-env name=GOPATH::$(go env GOPATH)"
+          echo "::add-path::$(go env GOPATH)/bin"
+      - name: setup emulator
+        run: ./setup-firestore.sh
+        working-directory: "./emulator"
+      - name: install fsrpl for import test data to emulator
+        run: GO111MODULE=off go get github.com/matsu0228/fsrpl
+      # tests
+      - name: Install Dependencies for jest
+        run: npm install
+        working-directory: ./integration
+      - name: tests by jest
+        run: npx jest --env node ./... --detectOpenHandles --testTimeout=300000
+        env:
+          FIRESTORE_EMULATOR_HOST: localhost:58080
+        working-directory: ./integration
