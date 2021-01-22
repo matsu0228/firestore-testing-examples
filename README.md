@@ -1,5 +1,6 @@
 ## firestore testing のコードサンプル集
 
+書籍 [Firestore Testing −なぜテストを書くのか、どう書くのかがよくわかる！−](https://techbookfest.org/product/5732781973831680?productVariantID=5768446107189248) のサンプルコードです
 
 | 目次 | ディレクトリ | 
 | --- | --- |
